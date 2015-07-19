@@ -317,6 +317,22 @@ class DB:
         result["data"] = aq
         return result
 
+    def get_final_state_data(self):
+        """
+        returns data in final state table
+        """
+        result = {}
+        conn = self.get_conn()
+        c = self.get_cur()
+        all_rows_init = c.execute('''SELECT spaceObject.id, spaceObject.name, finalState.date, finalState.semiMajorAxis, finalState.eccentricity, finalState.inclination, finalState.rAAN, finalState.argOfPerigee, finalState.meanAnomaly FROM finalState, spaceObject WHERE finalState.spaceObjectId = spaceObject.id''')
+        
+        aq = all_rows_init.fetchall()
+
+        result["length"] = len(aq)
+        result["data"] = aq
+        return result
+
+
     def time_convert(self):
         """
         Get the finishtime and start time and then minus from each other,
