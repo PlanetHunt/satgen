@@ -1,0 +1,32 @@
+{
+    "project": {
+        "base": "/home/pouyan/Projects/Python/Satgen/"
+    },
+    "database": {
+        "name": "satgen.db",
+        "path": "",
+        "type": "sqlite",
+        "username": "",
+        "password": "",
+        "host": "",
+        "port": ""
+    },
+    "stela": {
+        "path": "/opt/STELA-2-6-1/bin/",
+        "defaults": []
+    },
+    "master": {
+        "path": "/opt/MASTER-2009/",
+        "defaults": []
+    },
+    "sara": {
+        "path": "/opt/DRAMA-2.0/TOOLS/SARA/REENTRY/",
+        "defaults": []
+    },
+    "sim": {
+        "path": "sim"
+    },
+    "brain": {
+        "settings": []
+    }
+}
