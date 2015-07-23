@@ -6,10 +6,10 @@ Set the Stela configs here.
 
 import sys
 import itertools
+import xml.etree.ElementTree as ET
 from time import gmtime, strftime
 from logger import Logger
 from config_dict import ConfigDict
-import xml.etree.ElementTree as ET
 from xml_pretty import prettify
 from unit_converter import UnitConverter
 from database import DB

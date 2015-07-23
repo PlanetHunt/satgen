@@ -1,0 +1,33 @@
+{
+  "sections": [{
+    "name": "semiMajorAxis",
+    "start": 6600,
+    "end": 7200,
+    "step": 50,
+    "unit": "km"
+  }, {
+    "name": "Mass",
+    "start": 1,
+    "end": 10,
+    "step": 0.5,
+    "unit": "kg"
+  }, {
+    "name": "Length",
+    "start": "(0.1,0.1,0.1)",
+    "end": "(0.1,0,0)",
+    "step": "(0.6,0.1,0.1)",
+    "unit": "m"
+  }, {
+    "name": "inclination",
+    "start": 95,
+    "end": 0.5,
+    "step": 100,
+    "unit": "deg"
+  }, {
+    "name": "eccentricity",
+    "start": 0.001,
+    "end": 0.001,
+    "step": 0.010,
+    "unit": ""
+  }]
+}
