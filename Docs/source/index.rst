@@ -13,6 +13,9 @@ Contents:
     
    classes
 
+.. automodule:: satgen
+   :members:
+
 .. autoclass:: config.Config
    :members:
 .. autoclass:: database.DB

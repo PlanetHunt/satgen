@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Read/Set/Get/Convert configurations here.
-Most of the setting is done here. Xml files are also created here.
-Simulation files also get a database replication. it is easier then
-to manage the results.
-The results are managed by another module
-mainly the simulator.
+Set the Stela configs here.
 """
 
 import sys
@@ -1254,7 +1249,16 @@ class Config:
 
     def convert_space_object_to_tuple(self):
         """
-        convertes the space object to tuple
+        Converts the space object to the tuple for database.
+
+        Args:
+            None
+
+        Kwargs:
+            None
+
+        Retruns:
+                dict.
         """
         key_tuple = tuple()
         value_tuple = tuple()
