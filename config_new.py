@@ -72,6 +72,8 @@ class Config:
             for i in root["default_parms"]:
                 if(type(i) == dict):
                     ETS.set(list(i.keys())[0], list(i.values())[0])
+        if(root["unit"] != ""):
+            ETS.set("unit", root["unit"])
         if("value" in root):
             ETS.text = str(root["value"])
         if("children_obj" in root):
