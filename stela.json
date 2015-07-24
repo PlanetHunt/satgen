@@ -461,9 +461,7 @@
     "can_be_combined": [],
     "children": [],
     "length": 0,
-    "parent": [
-      "Type2PosVel"
-    ]
+    "parent": "Type2PosVel"
   }, {
     "name": "inclination",
     "xml_tag": "inclination",

@@ -32,6 +32,7 @@ class Config:
     self.stjs = stela_file
     self.stspjs = step_file
     self.ststjs = start_file
+    self.multiparentage = []
 
   def add_to_db(self):
     """
@@ -45,6 +46,21 @@ class Config:
 
     Returns:
             Boolean
+    """
+
+  def find_child_element(self, element, json_list):
+    """
+    Finds the children of the element by the given element. json_list
+
+    Args:
+            element (dict)
+            json_list (list)
+
+    Kwargs:
+            None
+
+    Returns:
+            list of elements (empty list when nothing found)
     """
 
   def find_element_by_name(self, name, json_list):
@@ -67,6 +83,46 @@ class Config:
     else:
       return result
 
+  def multi_parentage(self, element):
+    """
+    Solves the multiparentage problem, when one exists.
+
+    Args:
+            element dict
+
+    Kwargs:
+            None
+
+    Returns:
+            dict (an element) or "{}"
+    """
+    if(type(element["parent"]) == list and len(element["parent"]) > 1):
+      self.multiparentage.append(element)
+      return True
+    else:
+      return False
+
+  def solve_multi_parentage(self, needed_elements):
+    """
+    Solves the multiparentage problem. by adding multiparent element
+    with only the right parent.
+
+
+    Args:
+            needed_elements list
+
+    Kwargs:
+            None
+
+    Returns:
+            needed_elements (list)
+    """
+    for i in self.multiparentage:
+      a = [item for item in needed_elements if item["parent"] in i["parent"]]
+      i["parent"] = a[0]["parent"]
+      needed_elements.append(i)
+    return needed_elements
+
   def find_parents(self, section):
     """
     Finds the element's parent if any exists.
@@ -87,6 +143,22 @@ class Config:
         return [section["parent"]]
     else:
       return []
+
+  def element_exists(self, element, json_list):
+    """
+    Checks if an element exists in the given json_list.
+
+    Args:
+            element (dict)
+            json_list (list)
+
+    Kwargs:
+            None
+
+    Returns:
+            Boolean
+    """
+    return (len([item for item in json_list if item["name"] == element["name"]]) > 0)
 
   def generate_xml(self):
     """
@@ -112,11 +184,21 @@ class Config:
     root = {}
     needed_elements = []
     for i in stst_sections:
-      needed_elements.append(
-          self.find_element_by_name(i["name"], stjs_sections)[0])
-      sorted_elements = sorted(needed_elements, key=lambda k: k['sort_number'])
-    # print needed_elements
-    print sorted_elements
+      element = self.find_element_by_name(i["name"], stjs_sections)[0]
+      element["value"] = i["value"]
+      if(not self.multi_parentage(element)):
+        parent_element = self.find_element_by_name(
+            element["parent"], stjs_sections)[0]
+        needed_elements.append(element)
+      if(not self.element_exists(parent_element, needed_elements)):
+        needed_elements.append(parent_element)
+      # sorted_elements = sorted(needed_elements, key=lambda k:
+      # k['sort_number'])
+    needed_elements = self.solve_multi_parentage(needed_elements)
+    for i in needed_elements:
+      if(len(self.find_parents(i)) == 0):
+        root = i
+
 
 
 config = Config("satgen.db")
