@@ -25,7 +25,7 @@
         "value": 86400.0
     }, {
         "name": "dragSwitch",
-        "value": "True"
+        "value": "true"
     }, {
         "name": "dragQuadPoints",
         "value": 33
@@ -37,13 +37,13 @@
         "value": 11
     }, {
         "name": "srpSwitch",
-        "value": "True"
+        "value": "true"
     }, {
         "name": "sunSwitch",
-        "value": "True"
+        "value": "true"
     }, {
         "name": "moonSwitch",
-        "value": "True"
+        "value": "true"
     }, {
         "name": "zonalOrder",
         "value": 7
@@ -58,7 +58,7 @@
         "value": "False"
     }, {
         "name": "iterativeMode",
-        "value": "True"
+        "value": "true"
     }, {
         "name": "mass",
         "value": 1
@@ -75,7 +75,7 @@
         "name": "orbitType",
         "value": "LEO"
     }, {
-        "name": "ConstantDragCoef",
+        "name": "cstDragCoef",
         "value": "2.1"
     }, {
         "name": "name",
@@ -84,10 +84,7 @@
         "name": "atmosModel",
         "value": "NRLMSISE-00"
     }, {
-        "name": "VariableSolarActivity",
-        "value": "VARIABLE"
-    }, {
-        "name": "VariableSolarActivity",
+        "name": "solActType",
         "value": "VARIABLE"
     }, {
         "name": "date",
@@ -102,7 +99,7 @@
         "value": "MEAN"
     }, {
         "name": "semiMajorAxis",
-        "value": 6628
+        "value": 6628000
     }, {
         "name": "eccentricity",
         "value": 0.001
@@ -111,6 +108,9 @@
         "value": 0
     }, {
         "name": "rAAN",
+        "value": 0.0
+    }, {
+        "name": "inclination",
         "value": 0.0
     }, {
         "name": "argOfPerigee",
@@ -127,5 +127,8 @@
     }, {
         "name": "expDuration",
         "value": 24.75
+    }, {
+        "name": "atmosDragRecomputeStep",
+        "value"  : 1
     }]
 }

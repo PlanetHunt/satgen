@@ -61,7 +61,7 @@ class Config:
                 None
 
         return:
-                ET (ElementTree)
+                string
         """
         if(root["parent"] == ""):
             ETS = ET.Element(root["xml_tag"])
@@ -189,8 +189,9 @@ class Config:
         for i in self.multiparentage:
             a = [item for item in needed_elements if item[
                 "parent"] in i["parent"]]
-            i["parent"] = a[0]["parent"]
-            needed_elements.append(i)
+            if(len(a) > 0):
+                i["parent"] = a[0]["parent"]
+                needed_elements.append(i)
         return needed_elements
 
     def parents_exists(self, element, needed_elements, full_list):

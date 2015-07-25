@@ -172,7 +172,7 @@
         "unit": "",
         "default_parms": [],
         "can_be_combined": ["VariableDragCoef", "CookDragCoef"],
-        "children": [],
+        "children": ["cstDragCoef"],
         "length": 0,
         "parent": "SpaceObject"
     }, {
@@ -925,10 +925,7 @@
         "can_be_combined": [],
         "children": [],
         "length": 8,
-        "parent": ["VariableSolarActivity",
-            "ConstantEquivalentSolarActivity",
-            "ConstantSolarActivity"
-        ]
+        "parent": "VariableSolarActivity"
     }, {
         "name": "constantAP",
         "xml_tag": "constantAP",
