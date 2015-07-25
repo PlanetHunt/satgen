@@ -139,7 +139,7 @@ class SaraThread(threading.Thread):
         self.sara.run_sara()
 
 db = DB("satgen.db")
-s = Sara("/opt/DRAMA-2.0/TOOLS/SARA", db, "/home/holger/dev/satgen")
+s = Sara("/opt/DRAMA-2.0/TOOLS/SARA", db, "/home/pouyan/Projects/Python/Satgen")
 
 space_objects = db.get_final_state_data()
 
