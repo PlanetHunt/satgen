@@ -1,33 +1,38 @@
 {
   "sections": [{
     "name": "semiMajorAxis",
-    "start": 6600,
-    "end": 7200,
-    "step": 50,
-    "unit": "km"
+    "start": 7100.0,
+    "end": 7200.0,
+    "step": 50.0,
+    "unit": "km",
+    "type": "float"
   }, {
     "name": "Mass",
-    "start": 1,
-    "end": 10,
+    "start": 1.0,
+    "end": 2.0,
     "step": 0.5,
-    "unit": "kg"
+    "unit": "kg",
+    "type": "float"
   }, {
     "name": "Length",
     "start": "(0.1,0.1,0.1)",
-    "end": "(0.1,0,0)",
-    "step": "(0.6,0.1,0.1)",
-    "unit": "m"
+    "end": "(0.6,0.6,0.6)",
+    "step": "(0.1,0.1,0.1)",
+    "unit": "m",
+    "type": "tuple"
   }, {
     "name": "inclination",
-    "start": 95,
-    "end": 0.5,
-    "step": 100,
-    "unit": "deg"
+    "start": 98.0,
+    "end": 100.0,
+    "step": 0.5,
+    "unit": "deg",
+    "type": "float"
   }, {
     "name": "eccentricity",
     "start": 0.001,
-    "end": 0.001,
-    "step": 0.010,
-    "unit": ""
+    "end": 0.002,
+    "step": 0.001,
+    "unit": "",
+    "type": "float"
   }]
 }

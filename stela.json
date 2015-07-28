@@ -1,1162 +1,1235 @@
 {
-    "sections": [{
-        "name": "LEOSimulation",
-        "xml_tag": "LEOSimulation",
-        "sort_number": 1,
-        "alias": [
-            "LEO Simulation"
-        ],
-        "unit": "",
-        "default_parms": [{
-            "version": "2.5.0"
-        }],
-        "can_be_combined": [],
-        "children": [
-            "STELAVersion",
-            "SpaceObject",
-            "EphemerisManager",
-            "author",
-            "comment",
-            "simulationDuration",
-            "ephemerisStep",
-            "ttMinusUT1",
-            "srpSwitch",
-            "sunSwitch",
-            "moonSwitch",
-            "warningFlag",
-            "iterativeMode",
-            "modelType",
-            "atmosModel",
-            "VariableSolarActivity",
-            "ConstantEquivalentSolarActivity",
-            "ConstantSolarActivity",
-            "integrationStep",
-            "dragSwitch",
-            "dragQuadPoints",
-            "atmosDragRecomputeStep",
-            "srpQuadPoints",
-            "reentryAltitude",
-            "iterationData",
-            "nbIntegrationStepTesseral",
-            "zonalOrder"
-        ],
-        "length": 0,
-        "parent": ""
-    }, {
-        "name": "STELAVersion",
-        "xml_tag": "STELAVersion",
-        "sort_number": 1,
-        "alias": [
-            "Stela Version"
-        ],
-        "unit": "",
-        "default_parms": [
-            "2.5.1"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 5,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "SpaceObject",
-        "xml_tag": "SpaceObject",
-        "sort_number": 2,
-        "alias": [
-            "Space Object"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [
-            "mass",
-            "dragArea",
-            "reflectingArea",
-            "reflectivityCoefficient",
-            "orbitType",
-            "VariableDragCoef",
-            "ConstantDragCoef",
-            "CookDragCoef",
-            "name"
-        ],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "mass",
-        "xml_tag": "mass",
-        "sort_number": 1,
-        "alias": [
-            "Mass"
-        ],
-        "unit": "kg",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "dragArea",
-        "xml_tag": "dragArea",
-        "sort_number": 2,
-        "alias": [
-            "drag Area"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "reflectingArea",
-        "xml_tag": "reflectingArea",
-        "sort_number": 3,
-        "alias": [
-            "reflecting Area"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "reflectivityCoefficient",
-        "xml_tag": "reflectivityCoefficient",
-        "sort_number": 4,
-        "alias": [
-            "reflectivity Coefficient"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "orbitType",
-        "xml_tag": "orbitType",
-        "sort_number": 5,
-        "alias": [
-            "orbit Type"
-        ],
-        "unit": "",
-        "default_parms": [
-            "LEO"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 3,
-        "parent": "SpaceObject"
-    }, {
-        "name": "VariableDragCoef",
-        "xml_tag": "VariableDragCoef",
-        "sort_number": 6,
-        "alias": [
-            "Variable DragCoef",
-            "Variable Drag Coef"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": ["ConstantDragCoef", "CookDragCoef"],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "ConstantDragCoef",
-        "xml_tag": "ConstantDragCoef",
-        "sort_number": 6,
-        "alias": [
-            "Constant DragCoef",
-            "Constant Drag Coef"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": ["VariableDragCoef", "CookDragCoef"],
-        "children": ["cstDragCoef"],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "CookDragCoef",
-        "xml_tag": "CookDragCoef",
-        "sort_number": 6,
-        "alias": [
-            "Cook Drag Coef",
-            "Cook DragCoef"
-        ],
-        "unit": "",
-        "default_parms": [2.2],
-        "can_be_combined": ["VariableDragCoef", "ConstantDragCoef"],
-        "children": [],
-        "length": 0,
-        "parent": "SpaceObject"
-    }, {
-        "name": "cstDragCoef",
-        "xml_tag": "cstDragCoef",
-        "sort_number": 1,
-        "alias": [
-            "cst Drag Coef",
-            "cst DragCoef"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "ConstantDragCoef"
-    }, {
-        "name": "name",
-        "xml_tag": "name",
-        "sort_number": 7,
-        "alias": [
-            "Name"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 8,
-        "parent": "SpaceObject"
-    }, {
-        "name": "EphemerisManager",
-        "xml_tag": "EphemerisManager",
-        "sort_number": 3,
-        "alias": [
-            "EphemerisManager",
-            "Ephemeris Manager"
-        ],
-        "unit": "",
-        "default_parms": [{
-            "version": "2.5.0"
-        }],
-        "can_be_combined": [],
-        "children": ["initState"],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "initState",
-        "xml_tag": "initState",
-        "sort_number": 1,
-        "alias": [
-            "initState",
-            "init State"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": ["bulletin"],
-        "length": 0,
-        "parent": "EphemerisManager"
-    }, {
-        "name": "bulletin",
-        "xml_tag": "bulletin",
-        "sort_number": 1,
-        "alias": [
-            "bulletin",
-            "Initial Bulletin",
-            "bullet in"
-        ],
-        "unit": "",
-        "default_parms": [{
-            "version": "2.5.0"
-        }],
-        "can_be_combined": [],
-        "children": ["date",
-            "Type8PosVel",
-            "Type2PosVel",
-            "Type1PosVel",
-            "Type0PosVel"
-        ],
-        "length": 0,
-        "parent": "initState"
-    }, {
-        "name": "date",
-        "xml_tag": "date",
-        "sort_number": 1,
-        "alias": [
-            "Date"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 23,
-        "parent": "bulletin"
-    }, {
-        "name": "Type2PosVel",
-        "xml_tag": "Type2PosVel",
-        "sort_number": 2,
-        "alias": [
-            "Type2PosVel",
-            "Type 2 Pos Vel",
-            "Keplerian"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [
-            "Type0PosVel",
-            "Type1PosVel",
-            "Type8PosVel"
-        ],
-        "children": [
-            "frame",
-            "nature",
-            "semiMajorAxis",
-            "eccentricity",
-            "inclination",
-            "rAAN",
-            "argOfPerigee",
-            "meanAnomaly"
-        ],
-        "length": 0,
-        "parent": "bulletin"
-    }, {
-        "name": "Type0PosVel",
-        "xml_tag": "Type0PosVel",
-        "sort_number": 2,
-        "alias": [
-            "Type0PosVel",
-            "Type 0 Pos Vel",
-            "Perigee/Apogee"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [
-            "Type2PosVel",
-            "Type1PosVel",
-            "Type8PosVel"
-        ],
-        "children": [
-            "frame",
-            "nature",
-            "perigeeAltitude",
-            "apogeeAltitude",
-            "inclination",
-            "rAAN",
-            "argOfPerigee",
-            "meanAnomaly"
-        ],
-        "length": 0,
-        "parent": "bulletin"
-    }, {
-        "name": "Type1PosVel",
-        "xml_tag": "Type1PosVel",
-        "sort_number": 2,
-        "alias": [
-            "Type1PosVel",
-            "Type 1 Pos Vel",
-            "Cartesian"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [
-            "Type0PosVel",
-            "Type2PosVel",
-            "Type8PosVel"
-        ],
-        "children": [
-            "frame",
-            "nature",
-            "x",
-            "y",
-            "z",
-            "vX",
-            "vY",
-            "vZ"
-        ],
-        "length": 0,
-        "parent": "bulletin"
-    }, {
-        "name": "Type8PosVel",
-        "xml_tag": "Type8PosVel",
-        "sort_number": 2,
-        "alias": [
-            "Type8PosVel",
-            "Type 8 Pos Vel",
-            "Equinoctial"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [
-            "Type0PosVel",
-            "Type2PosVel",
-            "Type1PosVel"
-        ],
-        "children": [
-            "frame",
-            "nature",
-            "semiMajorAxis",
-            "lambdaEq",
-            "eX",
-            "eY",
-            "iX",
-            "iY"
-        ],
-        "length": 0,
-        "parent": "bulletin"
-    }, {
-        "name": "frame",
-        "xml_tag": "frame",
-        "sort_number": 1,
-        "alias": [
-            "Frame"
-        ],
-        "unit": "",
-        "default_parms": [
-            "CELESTIAL_MEAN_OF_DATE"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 22,
-        "parent": [
-            "Type8PosVel",
-            "Type0PosVel",
-            "Type2PosVel",
-            "Type1PosVel"
-        ]
-    }, {
-        "name": "nature",
-        "xml_tag": "nature",
-        "sort_number": 2,
-        "alias": [
-            "Nature"
-        ],
-        "unit": "",
-        "default_parms": [
-            "MEAN"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 6,
-        "parent": [
-            "Type8PosVel",
-            "Type0PosVel",
-            "Type2PosVel",
-            "Type1PosVel"
-        ]
-    }, {
-        "name": "semiMajorAxis",
-        "xml_tag": "semiMajorAxis",
-        "sort_number": 3,
-        "alias": [
-            "semi Major Axis"
-        ],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": [
-            "Type8PosVel",
-            "Type2PosVel"
-        ]
-    }, {
-        "name": "eccentricity",
-        "xml_tag": "eccentricity",
-        "sort_number": 4,
-        "alias": [
-            "eccentricity"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type2PosVel"
-    }, {
-        "name": "inclination",
-        "xml_tag": "inclination",
-        "sort_number": 5,
-        "alias": [
-            "inclination"
-        ],
-        "unit": "rad",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": [
-            "Type2PosVel",
-            "Type0PosVel"
-        ]
-    }, {
-        "name": "rAAN",
-        "xml_tag": "rAAN",
-        "sort_number": 6,
-        "alias": [
-            "raan"
-        ],
-        "unit": "rad",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": [
-            "Type2PosVel",
-            "Type0PosVel"
-        ]
-    }, {
-        "name": "argOfPerigee",
-        "xml_tag": "argOfPerigee",
-        "sort_number": 7,
-        "alias": [
-            "arg Of Perigee"
-        ],
-        "unit": "rad",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": [
-            "Type2PosVel",
-            "Type0PosVel"
-        ]
-    }, {
-        "name": "meanAnomaly",
-        "xml_tag": "meanAnomaly",
-        "sort_number": 8,
-        "alias": [
-            "mean Anomaly"
-        ],
-        "unit": "rad",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": [
-            "Type2PosVel",
-            "Type0PosVel"
-        ]
-    }, {
-        "name": "lambdaEq",
-        "xml_tag": "lambdaEq",
-        "sort_number": 4,
-        "alias": [
-            "lambda Eq"
-        ],
-        "unit": "rad",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type8PosVel"
-    }, {
-        "name": "eX",
-        "xml_tag": "eX",
-        "sort_number": 5,
-        "alias": [
-            "e X"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type8PosVel"
-    }, {
-        "name": "eY",
-        "xml_tag": "eY",
-        "sort_number": 6,
-        "alias": [
-            "e Y"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type8PosVel"
-    }, {
-        "name": "iX",
-        "xml_tag": "iX",
-        "sort_number": 7,
-        "alias": [
-            "i X"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type8PosVel"
-    }, {
-        "name": "iY",
-        "xml_tag": "iY",
-        "sort_number": 8,
-        "alias": [
-            "i Y"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type8PosVel"
-    }, {
-        "name": "perigeeAltitude",
-        "xml_tag": "perigeeAltitude",
-        "sort_number": 3,
-        "alias": [
-            "perigee Altitude"
-        ],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type0PosVel"
-    }, {
-        "name": "apogeeAltitude",
-        "xml_tag": "apogeeAltitude",
-        "sort_number": 4,
-        "alias": [
-            "apogee Altitude"
-        ],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type0PosVel"
-    }, {
-        "name": "x",
-        "xml_tag": "x",
-        "sort_number": 3,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "y",
-        "xml_tag": "y",
-        "sort_number": 4,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "z",
-        "xml_tag": "z",
-        "sort_number": 5,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "vX",
-        "xml_tag": "vX",
-        "sort_number": 6,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "vY",
-        "xml_tag": "vY",
-        "sort_number": 7,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "vZ",
-        "xml_tag": "vZ",
-        "sort_number": 8,
-        "alias": [],
-        "unit": "m",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "Type1PosVel"
-    }, {
-        "name": "author",
-        "xml_tag": "author",
-        "sort_number": 4,
-        "alias": [],
-        "unit": "",
-        "default_parms": [
-            "CNES"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 4,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "comment",
-        "xml_tag": "comment",
-        "sort_number": 5,
-        "alias": [],
-        "unit": "",
-        "default_parms": [
-            "LEO example simulation"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 25,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "simulationDuration",
-        "xml_tag": "simulationDuration",
-        "sort_number": 6,
-        "alias": [
-            "simulation Duration"
-        ],
-        "unit": "years",
-        "default_parms": [
-            100
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "ephemerisStep",
-        "xml_tag": "ephemerisStep",
-        "sort_number": 7,
-        "alias": [
-            "ephemeris Step"
-        ],
-        "unit": "s",
-        "default_parms": [
-            86400
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "ttMinusUT1",
-        "xml_tag": "ttMinusUT1",
-        "sort_number": 8,
-        "alias": [
-            "tt Minus UT1"
-        ],
-        "unit": "s",
-        "default_parms": [
-            67.184
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "srpSwitch",
-        "xml_tag": "srpSwitch",
-        "sort_number": 9,
-        "alias": [
-            "srp Switch"
-        ],
-        "unit": "",
-        "default_parms": [
-            "True"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "sunSwitch",
-        "xml_tag": "sunSwitch",
-        "sort_number": 10,
-        "alias": [
-            "sun Switch"
-        ],
-        "unit": "",
-        "default_parms": [
-            "True"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "moonSwitch",
-        "xml_tag": "moonSwitch",
-        "sort_number": 11,
-        "alias": [
-            "moon Switch"
-        ],
-        "unit": "",
-        "default_parms": [
-            "True"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "warningFlag",
-        "xml_tag": "warningFlag",
-        "sort_number": 12,
-        "alias": [
-            "warning Flag"
-        ],
-        "unit": "",
-        "default_parms": [
-            "False"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "iterativeMode",
-        "xml_tag": "iterativeMode",
-        "sort_number": 13,
-        "alias": [
-            "iterative Mode"
-        ],
-        "unit": "",
-        "default_parms": [
-            "True"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "modelType",
-        "xml_tag": "modelType",
-        "sort_number": 14,
-        "alias": [
-            "model Type",
-            "model"
-        ],
-        "unit": "",
-        "default_parms": [
-            "GTO"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "atmosModel",
-        "xml_tag": "atmosModel",
-        "sort_number": 15,
-        "alias": [
-            "atmos Model"
-        ],
-        "unit": "",
-        "default_parms": [
-            "NRLMSISE-00"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "VariableSolarActivity",
-        "xml_tag": "VariableSolarActivity",
-        "sort_number": 16,
-        "alias": [
-            "Variable Solar Activity"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": ["ConstantEquivalentSolarActivity",
-            "ConstantSolarActivity"
-        ],
-        "children": [
-            "solActType"
-        ],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "ConstantSolarActivity",
-        "xml_tag": "ConstantSolarActivity",
-        "sort_number": 16,
-        "alias": [
-            "Constant Solar Activity"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": ["ConstantEquivalentSolarActivity",
-            "VariableSolarActivity"
-        ],
-        "children": [
-            "solActType", "constantAP", "constantF107"
-        ],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "ConstantEquivalentSolarActivity",
-        "xml_tag": "ConstantEquivalentSolarActivity",
-        "sort_number": 16,
-        "alias": [
-            "Constant EquivalentSolar Activity"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": ["VariableSolarActivity",
-            "ConstantSolarActivity"
-        ],
-        "children": [
-            "solActType"
-        ],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "solActType",
-        "xml_tag": "solActType",
-        "sort_number": 1,
-        "alias": [
-            "sol Act Type"
-        ],
-        "unit": "",
-        "default_parms": [
-            "VARIABLE", "MEAN_CONSTANT", "CONSTANT"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 8,
-        "parent": "VariableSolarActivity"
-    }, {
-        "name": "constantAP",
-        "xml_tag": "constantAP",
-        "sort_number": 2,
-        "alias": [
-            "constant AP"
-        ],
-        "unit": "",
-        "default_parms": [
-            15.0
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 8,
-        "parent": ["ConstantEquivalentSolarActivity",
-            "ConstantSolarActivity"
-        ]
-    }, {
-        "name": "constantF107",
-        "xml_tag": "constantF107",
-        "sort_number": 3,
-        "alias": [
-            "constant F107"
-        ],
-        "unit": "",
-        "default_parms": [
-            140.0
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 8,
-        "parent": ["ConstantEquivalentSolarActivity",
-            "ConstantSolarActivity"
-        ]
-    }, {
-        "name": "integrationStep",
-        "xml_tag": "integrationStep",
-        "sort_number": 17,
-        "alias": [
-            "integration Step"
-        ],
-        "unit": "s",
-        "default_parms": [
-            86400
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "dragSwitch",
-        "xml_tag": "dragSwitch",
-        "sort_number": 18,
-        "alias": [
-            "drag Switch"
-        ],
-        "unit": "",
-        "default_parms": [
-            "True"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "dragQuadPoints",
-        "xml_tag": "dragQuadPoints",
-        "sort_number": 19,
-        "alias": [
-            "drag Quad Points"
-        ],
-        "unit": "",
-        "default_parms": [
-            33
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "atmosDragRecomputeStep",
-        "xml_tag": "atmosDragRecomputeStep",
-        "sort_number": 20,
-        "alias": [
-            "atmos Drag Recompute Step"
-        ],
-        "unit": "",
-        "default_parms": [
-            1
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "srpQuadPoints",
-        "xml_tag": "srpQuadPoints",
-        "sort_number": 21,
-        "alias": [
-            "srp Quad Points"
-        ],
-        "unit": "",
-        "default_parms": [
-            11
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "reentryAltitude",
-        "xml_tag": "reentryAltitude",
-        "sort_number": 22,
-        "alias": [
-            "reentry Altitude"
-        ],
-        "unit": "m",
-        "default_parms": [
-            120000
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "iterationData",
-        "xml_tag": "iterationData",
-        "sort_number": 23,
-        "alias": [
-            "iteration Data"
-        ],
-        "unit": "",
-        "default_parms": [],
-        "can_be_combined": [],
-        "children": [
-            "funcValueAccuracy",
-            "expDuration",
-            "simMinusExpDuration",
-            "iterationMethod"
-        ],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "funcValueAccuracy",
-        "xml_tag": "funcValueAccuracy",
-        "sort_number": 1,
-        "alias": [
-            "func ValueA ccuracy"
-        ],
-        "unit": "days",
-        "default_parms": [
-            10
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "iterationData"
-    }, {
-        "name": "expDuration",
-        "xml_tag": "expDuration",
-        "sort_number": 2,
-        "alias": [
-            "exp Duration"
-        ],
-        "unit": "years",
-        "default_parms": [
-            24.75
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "iterationData"
-    }, {
-        "name": "simMinusExpDuration",
-        "xml_tag": "simMinusExpDuration",
-        "sort_number": 3,
-        "alias": [
-            "sim Minus Exp Duration"
-        ],
-        "unit": "years",
-        "default_parms": [
-            75.25
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "iterationData"
-    }, {
-        "name": "iterationMethod",
-        "xml_tag": "iterationMethod",
-        "sort_number": 4,
-        "alias": [
-            "iteration Method"
-        ],
-        "unit": "",
-        "default_parms": [
-            "FrozenOrbit"
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 11,
-        "parent": "iterationData"
-    }, {
-        "name": "nbIntegrationStepTesseral",
-        "xml_tag": "nbIntegrationStepTesseral",
-        "sort_number": 24,
-        "alias": [
-            "nb Integration Step Tesseral"
-        ],
-        "unit": "",
-        "default_parms": [
-            5
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }, {
-        "name": "zonalOrder",
-        "xml_tag": "zonalOrder",
-        "sort_number": 25,
-        "alias": [
-            "zonal Order"
-        ],
-        "unit": "",
-        "default_parms": [
-            7
-        ],
-        "can_be_combined": [],
-        "children": [],
-        "length": 0,
-        "parent": "LEOSimulation"
-    }]
+  "sections": [{
+    "name": "LEOSimulation",
+    "xml_tag": "LEOSimulation",
+    "database_tag": "",
+    "sort_number": 1,
+    "alias": [
+      "LEO Simulation"
+    ],
+    "unit": "",
+    "default_parms": [{
+      "version": "2.5.0"
+    }],
+    "can_be_combined": [],
+    "children": [
+      "STELAVersion",
+      "SpaceObject",
+      "EphemerisManager",
+      "author",
+      "comment",
+      "simulationDuration",
+      "ephemerisStep",
+      "ttMinusUT1",
+      "srpSwitch",
+      "sunSwitch",
+      "moonSwitch",
+      "warningFlag",
+      "iterativeMode",
+      "modelType",
+      "atmosModel",
+      "VariableSolarActivity",
+      "ConstantEquivalentSolarActivity",
+      "ConstantSolarActivity",
+      "integrationStep",
+      "dragSwitch",
+      "dragQuadPoints",
+      "atmosDragRecomputeStep",
+      "srpQuadPoints",
+      "reentryAltitude",
+      "iterationData",
+      "nbIntegrationStepTesseral",
+      "zonalOrder"
+    ],
+    "length": 0,
+    "parent": ""
+  }, {
+    "name": "STELAVersion",
+    "xml_tag": "STELAVersion",
+    "database_tag": "",
+    "sort_number": 1,
+    "alias": [
+      "Stela Version"
+    ],
+    "unit": "",
+    "default_parms": [
+      "2.5.1"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 5,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "SpaceObject",
+    "xml_tag": "SpaceObject",
+    "database_tag": "",
+    "sort_number": 2,
+    "alias": [
+      "Space Object"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [
+      "mass",
+      "dragArea",
+      "reflectingArea",
+      "reflectivityCoefficient",
+      "orbitType",
+      "VariableDragCoef",
+      "ConstantDragCoef",
+      "CookDragCoef",
+      "name"
+    ],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "mass",
+    "xml_tag": "mass",
+    "database_tag": "spaceObject",
+    "sort_number": 1,
+    "alias": [
+      "Mass"
+    ],
+    "unit": "kg",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "dragArea",
+    "xml_tag": "dragArea",
+    "database_tag": "spaceObject",
+    "sort_number": 2,
+    "alias": [
+      "drag Area"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "reflectingArea",
+    "xml_tag": "reflectingArea",
+    "database_tag": "spaceObject",
+    "sort_number": 3,
+    "alias": [
+      "reflecting Area"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "reflectivityCoefficient",
+    "xml_tag": "reflectivityCoefficient",
+    "database_tag": "spaceObject",
+    "sort_number": 4,
+    "alias": [
+      "reflectivity Coefficient"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "orbitType",
+    "xml_tag": "orbitType",
+    "database_tag": "spaceObject",
+    "sort_number": 5,
+    "alias": [
+      "orbit Type"
+    ],
+    "unit": "",
+    "default_parms": [
+      "LEO"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 3,
+    "parent": "SpaceObject"
+  }, {
+    "name": "VariableDragCoef",
+    "xml_tag": "VariableDragCoef",
+    "database_tag": "spaceObject",
+    "sort_number": 6,
+    "alias": [
+      "Variable DragCoef",
+      "Variable Drag Coef"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": ["ConstantDragCoef", "CookDragCoef"],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "ConstantDragCoef",
+    "xml_tag": "ConstantDragCoef",
+    "database_tag": "spaceObject",
+    "sort_number": 6,
+    "alias": [
+      "Constant DragCoef",
+      "Constant Drag Coef"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": ["VariableDragCoef", "CookDragCoef"],
+    "children": ["cstDragCoef"],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "CookDragCoef",
+    "xml_tag": "CookDragCoef",
+    "database_tag": "spaceObject",
+    "sort_number": 6,
+    "alias": [
+      "Cook Drag Coef",
+      "Cook DragCoef"
+    ],
+    "unit": "",
+    "default_parms": [2.2],
+    "can_be_combined": ["VariableDragCoef", "ConstantDragCoef"],
+    "children": [],
+    "length": 0,
+    "parent": "SpaceObject"
+  }, {
+    "name": "cstDragCoef",
+    "xml_tag": "cstDragCoef",
+    "database_tag": "spaceObject",
+    "sort_number": 1,
+    "alias": [
+      "cst Drag Coef",
+      "cst DragCoef"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "ConstantDragCoef"
+  }, {
+    "name": "name",
+    "xml_tag": "name",
+    "database_tag": "spaceObject",
+    "sort_number": 7,
+    "alias": [
+      "Name"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 8,
+    "parent": "SpaceObject"
+  }, {
+    "name": "EphemerisManager",
+    "xml_tag": "EphemerisManager",
+    "database_tag": "",
+    "sort_number": 3,
+    "alias": [
+      "EphemerisManager",
+      "Ephemeris Manager"
+    ],
+    "unit": "",
+    "default_parms": [{
+      "version": "2.5.0"
+    }],
+    "can_be_combined": [],
+    "children": ["initState"],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "initState",
+    "xml_tag": "initState",
+    "database_tag": "",
+    "sort_number": 1,
+    "alias": [
+      "initState",
+      "init State"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": ["bulletin"],
+    "length": 0,
+    "parent": "EphemerisManager"
+  }, {
+    "name": "bulletin",
+    "xml_tag": "bulletin",
+    "database_tag": "",
+    "sort_number": 1,
+    "alias": [
+      "bulletin",
+      "Initial Bulletin",
+      "bullet in"
+    ],
+    "unit": "",
+    "default_parms": [{
+      "version": "2.5.0"
+    }],
+    "can_be_combined": [],
+    "children": ["date",
+      "Type8PosVel",
+      "Type2PosVel",
+      "Type1PosVel",
+      "Type0PosVel"
+    ],
+    "length": 0,
+    "parent": "initState"
+  }, {
+    "name": "date",
+    "xml_tag": "date",
+    "database_tag": "initState",
+    "sort_number": 1,
+    "alias": [
+      "Date"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 23,
+    "parent": "bulletin"
+  }, {
+    "name": "Type2PosVel",
+    "xml_tag": "Type2PosVel",
+    "database_tag": "initState",
+    "sort_number": 2,
+    "alias": [
+      "Type2PosVel",
+      "Type 2 Pos Vel",
+      "Keplerian"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [
+      "Type0PosVel",
+      "Type1PosVel",
+      "Type8PosVel"
+    ],
+    "children": [
+      "frame",
+      "nature",
+      "semiMajorAxis",
+      "eccentricity",
+      "inclination",
+      "rAAN",
+      "argOfPerigee",
+      "meanAnomaly"
+    ],
+    "length": 0,
+    "parent": "bulletin"
+  }, {
+    "name": "Type0PosVel",
+    "xml_tag": "Type0PosVel",
+    "database_tag": "initState",
+    "sort_number": 2,
+    "alias": [
+      "Type0PosVel",
+      "Type 0 Pos Vel",
+      "Perigee/Apogee"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [
+      "Type2PosVel",
+      "Type1PosVel",
+      "Type8PosVel"
+    ],
+    "children": [
+      "frame",
+      "nature",
+      "perigeeAltitude",
+      "apogeeAltitude",
+      "inclination",
+      "rAAN",
+      "argOfPerigee",
+      "meanAnomaly"
+    ],
+    "length": 0,
+    "parent": "bulletin"
+  }, {
+    "name": "Type1PosVel",
+    "xml_tag": "Type1PosVel",
+    "database_tag": "initState",
+    "sort_number": 2,
+    "alias": [
+      "Type1PosVel",
+      "Type 1 Pos Vel",
+      "Cartesian"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [
+      "Type0PosVel",
+      "Type2PosVel",
+      "Type8PosVel"
+    ],
+    "children": [
+      "frame",
+      "nature",
+      "x",
+      "y",
+      "z",
+      "vX",
+      "vY",
+      "vZ"
+    ],
+    "length": 0,
+    "parent": "bulletin"
+  }, {
+    "name": "Type8PosVel",
+    "xml_tag": "Type8PosVel",
+    "database_tag": "initState",
+    "sort_number": 2,
+    "alias": [
+      "Type8PosVel",
+      "Type 8 Pos Vel",
+      "Equinoctial"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [
+      "Type0PosVel",
+      "Type2PosVel",
+      "Type1PosVel"
+    ],
+    "children": [
+      "frame",
+      "nature",
+      "semiMajorAxis",
+      "lambdaEq",
+      "eX",
+      "eY",
+      "iX",
+      "iY"
+    ],
+    "length": 0,
+    "parent": "bulletin"
+  }, {
+    "name": "frame",
+    "xml_tag": "frame",
+    "database_tag": "initState",
+    "sort_number": 1,
+    "alias": [
+      "Frame"
+    ],
+    "unit": "",
+    "default_parms": [
+      "CELESTIAL_MEAN_OF_DATE"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 22,
+    "parent": [
+      "Type8PosVel",
+      "Type0PosVel",
+      "Type2PosVel",
+      "Type1PosVel"
+    ]
+  }, {
+    "name": "nature",
+    "xml_tag": "nature",
+    "database_tag": "initState",
+    "sort_number": 2,
+    "alias": [
+      "Nature"
+    ],
+    "unit": "",
+    "default_parms": [
+      "MEAN"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 6,
+    "parent": [
+      "Type8PosVel",
+      "Type0PosVel",
+      "Type2PosVel",
+      "Type1PosVel"
+    ]
+  }, {
+    "name": "semiMajorAxis",
+    "xml_tag": "semiMajorAxis",
+    "database_tag": "initState",
+    "sort_number": 3,
+    "alias": [
+      "semi Major Axis"
+    ],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": [
+      "Type8PosVel",
+      "Type2PosVel"
+    ]
+  }, {
+    "name": "eccentricity",
+    "xml_tag": "eccentricity",
+    "database_tag": "initState",
+    "sort_number": 4,
+    "alias": [
+      "eccentricity"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type2PosVel"
+  }, {
+    "name": "inclination",
+    "xml_tag": "inclination",
+    "database_tag": "initState",
+    "sort_number": 5,
+    "alias": [
+      "inclination"
+    ],
+    "unit": "rad",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": [
+      "Type2PosVel",
+      "Type0PosVel"
+    ]
+  }, {
+    "name": "rAAN",
+    "xml_tag": "rAAN",
+    "database_tag": "initState",
+    "sort_number": 6,
+    "alias": [
+      "raan"
+    ],
+    "unit": "rad",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": [
+      "Type2PosVel",
+      "Type0PosVel"
+    ]
+  }, {
+    "name": "argOfPerigee",
+    "xml_tag": "argOfPerigee",
+    "database_tag": "initState",
+    "sort_number": 7,
+    "alias": [
+      "arg Of Perigee"
+    ],
+    "unit": "rad",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": [
+      "Type2PosVel",
+      "Type0PosVel"
+    ]
+  }, {
+    "name": "meanAnomaly",
+    "xml_tag": "meanAnomaly",
+    "database_tag": "initState",
+    "sort_number": 8,
+    "alias": [
+      "mean Anomaly"
+    ],
+    "unit": "rad",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": [
+      "Type2PosVel",
+      "Type0PosVel"
+    ]
+  }, {
+    "name": "lambdaEq",
+    "xml_tag": "lambdaEq",
+    "database_tag": "initState",
+    "sort_number": 4,
+    "alias": [
+      "lambda Eq"
+    ],
+    "unit": "rad",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type8PosVel"
+  }, {
+    "name": "eX",
+    "xml_tag": "eX",
+    "database_tag": "initState",
+    "sort_number": 5,
+    "alias": [
+      "e X"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type8PosVel"
+  }, {
+    "name": "eY",
+    "xml_tag": "eY",
+    "database_tag": "initState",
+    "sort_number": 6,
+    "alias": [
+      "e Y"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type8PosVel"
+  }, {
+    "name": "iX",
+    "xml_tag": "iX",
+    "database_tag": "initState",
+    "sort_number": 7,
+    "alias": [
+      "i X"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type8PosVel"
+  }, {
+    "name": "iY",
+    "xml_tag": "iY",
+    "database_tag": "initState",
+    "sort_number": 8,
+    "alias": [
+      "i Y"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type8PosVel"
+  }, {
+    "name": "perigeeAltitude",
+    "xml_tag": "perigeeAltitude",
+    "database_tag": "initState",
+    "sort_number": 3,
+    "alias": [
+      "perigee Altitude"
+    ],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type0PosVel"
+  }, {
+    "name": "apogeeAltitude",
+    "xml_tag": "apogeeAltitude",
+    "database_tag": "initState",
+    "sort_number": 4,
+    "alias": [
+      "apogee Altitude"
+    ],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type0PosVel"
+  }, {
+    "name": "x",
+    "xml_tag": "x",
+    "database_tag": "initState",
+    "sort_number": 3,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "y",
+    "xml_tag": "y",
+    "database_tag": "initState",
+    "sort_number": 4,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "z",
+    "xml_tag": "z",
+    "database_tag": "initState",
+    "sort_number": 5,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "vX",
+    "xml_tag": "vX",
+    "database_tag": "initState",
+    "sort_number": 6,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "vY",
+    "xml_tag": "vY",
+    "database_tag": "initState",
+    "sort_number": 7,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "vZ",
+    "xml_tag": "vZ",
+    "database_tag": "initState",
+    "sort_number": 8,
+    "alias": [],
+    "unit": "m",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "Type1PosVel"
+  }, {
+    "name": "author",
+    "xml_tag": "author",
+    "database_tag": "simGeneral",
+    "sort_number": 4,
+    "alias": [],
+    "unit": "",
+    "default_parms": [
+      "CNES"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 4,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "comment",
+    "xml_tag": "comment",
+    "database_tag": "simGeneral",
+    "sort_number": 5,
+    "alias": [],
+    "unit": "",
+    "default_parms": [
+      "LEO example simulation"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 25,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "simulationDuration",
+    "xml_tag": "simulationDuration",
+    "database_tag": "simGeneral",
+    "sort_number": 6,
+    "alias": [
+      "simulation Duration"
+    ],
+    "unit": "years",
+    "default_parms": [
+      100
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "ephemerisStep",
+    "xml_tag": "ephemerisStep",
+    "database_tag": "simGeneral",
+    "sort_number": 7,
+    "alias": [
+      "ephemeris Step"
+    ],
+    "unit": "s",
+    "default_parms": [
+      86400
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "ttMinusUT1",
+    "xml_tag": "ttMinusUT1",
+    "database_tag": "simGeneral",
+    "sort_number": 8,
+    "alias": [
+      "tt Minus UT1"
+    ],
+    "unit": "s",
+    "default_parms": [
+      67.184
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "srpSwitch",
+    "xml_tag": "srpSwitch",
+    "database_tag": "simGeneral",
+    "sort_number": 9,
+    "alias": [
+      "srp Switch"
+    ],
+    "unit": "",
+    "default_parms": [
+      "True"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "sunSwitch",
+    "xml_tag": "sunSwitch",
+    "database_tag": "simGeneral",
+    "sort_number": 10,
+    "alias": [
+      "sun Switch"
+    ],
+    "unit": "",
+    "default_parms": [
+      "True"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "moonSwitch",
+    "xml_tag": "moonSwitch",
+    "database_tag": "simGeneral",
+    "sort_number": 11,
+    "alias": [
+      "moon Switch"
+    ],
+    "unit": "",
+    "default_parms": [
+      "True"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "warningFlag",
+    "xml_tag": "warningFlag",
+    "database_tag": "simGeneral",
+    "sort_number": 12,
+    "alias": [
+      "warning Flag"
+    ],
+    "unit": "",
+    "default_parms": [
+      "False"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "iterativeMode",
+    "xml_tag": "iterativeMode",
+    "database_tag": "simGeneral",
+    "sort_number": 13,
+    "alias": [
+      "iterative Mode"
+    ],
+    "unit": "",
+    "default_parms": [
+      "True"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "modelType",
+    "xml_tag": "modelType",
+    "database_tag": "simGeneral",
+    "sort_number": 14,
+    "alias": [
+      "model Type",
+      "model"
+    ],
+    "unit": "",
+    "default_parms": [
+      "GTO"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "atmosModel",
+    "xml_tag": "atmosModel",
+    "database_tag": "simGeneral",
+    "sort_number": 15,
+    "alias": [
+      "atmos Model"
+    ],
+    "unit": "",
+    "default_parms": [
+      "NRLMSISE-00"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "VariableSolarActivity",
+    "xml_tag": "VariableSolarActivity",
+    "database_tag": "simGeneral",
+    "sort_number": 16,
+    "alias": [
+      "Variable Solar Activity"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": ["ConstantEquivalentSolarActivity",
+      "ConstantSolarActivity"
+    ],
+    "children": [
+      "solActType"
+    ],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "ConstantSolarActivity",
+    "xml_tag": "ConstantSolarActivity",
+    "database_tag": "simGeneral",
+    "sort_number": 16,
+    "alias": [
+      "Constant Solar Activity"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": ["ConstantEquivalentSolarActivity",
+      "VariableSolarActivity"
+    ],
+    "children": [
+      "solActType", "constantAP", "constantF107"
+    ],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "ConstantEquivalentSolarActivity",
+    "xml_tag": "ConstantEquivalentSolarActivity",
+    "database_tag": "simGeneral",
+    "sort_number": 16,
+    "alias": [
+      "Constant EquivalentSolar Activity"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": ["VariableSolarActivity",
+      "ConstantSolarActivity"
+    ],
+    "children": [
+      "solActType"
+    ],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "solActType",
+    "xml_tag": "solActType",
+    "database_tag": "simGeneral",
+    "sort_number": 1,
+    "alias": [
+      "sol Act Type"
+    ],
+    "unit": "",
+    "default_parms": [
+      "VARIABLE", "MEAN_CONSTANT", "CONSTANT"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 8,
+    "parent": "VariableSolarActivity"
+  }, {
+    "name": "constantAP",
+    "xml_tag": "constantAP",
+    "database_tag": "simGeneral",
+    "sort_number": 2,
+    "alias": [
+      "constant AP"
+    ],
+    "unit": "",
+    "default_parms": [
+      15.0
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 8,
+    "parent": ["ConstantEquivalentSolarActivity",
+      "ConstantSolarActivity"
+    ]
+  }, {
+    "name": "constantF107",
+    "xml_tag": "constantF107",
+    "database_tag": "simGeneral",
+    "sort_number": 3,
+    "alias": [
+      "constant F107"
+    ],
+    "unit": "",
+    "default_parms": [
+      140.0
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 8,
+    "parent": ["ConstantEquivalentSolarActivity",
+      "ConstantSolarActivity"
+    ]
+  }, {
+    "name": "integrationStep",
+    "xml_tag": "integrationStep",
+    "database_tag": "simGeneral",
+    "sort_number": 17,
+    "alias": [
+      "integration Step"
+    ],
+    "unit": "s",
+    "default_parms": [
+      86400
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "dragSwitch",
+    "xml_tag": "dragSwitch",
+    "database_tag": "simGeneral",
+    "sort_number": 18,
+    "alias": [
+      "drag Switch"
+    ],
+    "unit": "",
+    "default_parms": [
+      "True"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "dragQuadPoints",
+    "xml_tag": "dragQuadPoints",
+    "database_tag": "simGeneral",
+    "sort_number": 19,
+    "alias": [
+      "drag Quad Points"
+    ],
+    "unit": "",
+    "default_parms": [
+      33
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "atmosDragRecomputeStep",
+    "xml_tag": "atmosDragRecomputeStep",
+    "database_tag": "simGeneral",
+    "sort_number": 20,
+    "alias": [
+      "atmos Drag Recompute Step"
+    ],
+    "unit": "",
+    "default_parms": [
+      1
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "srpQuadPoints",
+    "xml_tag": "srpQuadPoints",
+    "database_tag": "simGeneral",
+    "sort_number": 21,
+    "alias": [
+      "srp Quad Points"
+    ],
+    "unit": "",
+    "default_parms": [
+      11
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "reentryAltitude",
+    "xml_tag": "reentryAltitude",
+    "database_tag": "simGeneral",
+    "sort_number": 22,
+    "alias": [
+      "reentry Altitude"
+    ],
+    "unit": "m",
+    "default_parms": [
+      120000
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "iterationData",
+    "xml_tag": "iterationData",
+    "database_tag": "",
+    "sort_number": 23,
+    "alias": [
+      "iteration Data"
+    ],
+    "unit": "",
+    "default_parms": [],
+    "can_be_combined": [],
+    "children": [
+      "funcValueAccuracy",
+      "expDuration",
+      "simMinusExpDuration",
+      "iterationMethod"
+    ],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "funcValueAccuracy",
+    "xml_tag": "funcValueAccuracy",
+    "database_tag": "iterationData",
+    "sort_number": 1,
+    "alias": [
+      "func ValueA ccuracy"
+    ],
+    "unit": "days",
+    "default_parms": [
+      10
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "iterationData"
+  }, {
+    "name": "expDuration",
+    "xml_tag": "expDuration",
+    "database_tag": "iterationData",
+    "sort_number": 2,
+    "alias": [
+      "exp Duration"
+    ],
+    "unit": "years",
+    "default_parms": [
+      24.75
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "iterationData"
+  }, {
+    "name": "simMinusExpDuration",
+    "xml_tag": "simMinusExpDuration",
+    "database_tag": "iterationData",
+    "sort_number": 3,
+    "alias": [
+      "sim Minus Exp Duration"
+    ],
+    "unit": "years",
+    "default_parms": [
+      75.25
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "iterationData"
+  }, {
+    "name": "iterationMethod",
+    "xml_tag": "iterationMethod",
+    "database_tag": "iterationData",
+    "sort_number": 4,
+    "alias": [
+      "iteration Method"
+    ],
+    "unit": "",
+    "default_parms": [
+      "FrozenOrbit"
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 11,
+    "parent": "iterationData"
+  }, {
+    "name": "nbIntegrationStepTesseral",
+    "xml_tag": "nbIntegrationStepTesseral",
+    "database_tag": "simGeneral",
+    "sort_number": 24,
+    "alias": [
+      "nb Integration Step Tesseral"
+    ],
+    "unit": "",
+    "default_parms": [
+      5
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }, {
+    "name": "zonalOrder",
+    "xml_tag": "zonalOrder",
+    "database_tag": "simGeneral",
+    "sort_number": 25,
+    "alias": [
+      "zonal Order"
+    ],
+    "unit": "",
+    "default_parms": [
+      7
+    ],
+    "can_be_combined": [],
+    "children": [],
+    "length": 0,
+    "parent": "LEOSimulation"
+  }]
 }
