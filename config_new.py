@@ -15,7 +15,6 @@ from xml_pretty import prettify
 from time import gmtime, strftime
 from logger import Logger
 from database import DB
-from unit_converter import UnitConverter
 
 
 class Config:
@@ -514,6 +513,20 @@ class Config:
             return True
         else:
             return False
+
+    def add_space_object_id(self, space_object_id):
+        """
+        Add Space object id to the given database list.
+
+        Args:
+                space_object_id (int)
+
+        Kwargs:
+                None
+
+        Returns:
+                None
+        """
 
     def solve_multi_parentage(self):
         """

@@ -280,24 +280,24 @@ class DB:
         """
         conn = self.conn
         c = self.cur
-        space_object = config.convert_space_object_to_tuple()
+        space_object = config["spaceObject"]
         c.execute(
             '''INSERT INTO spaceObject{0} values {1}'''.
-            format(space_object["key"], space_object["qu"]),
-            space_object["value"])
+            format(space_object["names"], space_object["qu"]),
+            space_object["values"])
         conn.commit()
         space_object_id = c.lastrowid
-        init_state = config.convert_init_state_to_tuple(space_object_id)
+        init_state = config["initState"]
         c.execute(
             '''INSERT INTO initState{0} values {1}'''.
-            format(init_state["key"], init_state["qu"]),
-            init_state["value"])
+            format(init_state["names"], init_state["qu"]),
+            init_state["values"])
         conn.commit()
-        sim_general = config.convert_general_sim(space_object_id)
+        sim_general = config["simGeneral"]
         c.execute(
             '''INSERT INTO simGeneral{0} values{1}'''.
-            format(sim_general["key"], sim_general["qu"]),
-            sim_general["value"])
+            format(sim_general["names"], sim_general["qu"]),
+            sim_general["values"])
         conn.commit
         return c.lastrowid
 
