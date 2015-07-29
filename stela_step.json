@@ -1,7 +1,7 @@
 {
   "sections": [{
     "name": "semiMajorAxis",
-    "start": 7100.0,
+    "start": 7200.0,
     "end": 7200.0,
     "step": 50.0,
     "unit": "km",
@@ -22,9 +22,9 @@
     "type": "tuple"
   }, {
     "name": "inclination",
-    "start": 98.0,
+    "start": 100.0,
     "end": 100.0,
-    "step": 0.5,
+    "step": 1,
     "unit": "deg",
     "type": "float"
   }, {

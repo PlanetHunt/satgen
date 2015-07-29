@@ -157,14 +157,16 @@ class Config:
                         start, self.convert_to_tuple(k["step"]))
                     tmp_list.append(str(start))
             else:
-                if(k["unit"] != self.find_element_by_name(k["name"], self.needed_elements)[0]["unit"]):
-                    start = self.convert.convert(k["unit"],
-                                                 self.find_element_by_name(
+                if(not (k["unit"] == self.find_element_by_name(k["name"], self.needed_elements)[0]["unit"])):
+                    start = self.convert.convert(k["unit"], self.find_element_by_name(
                         k["name"], self.needed_elements)[0]["unit"], float(start))
-                    step = self.convert.convert(k["unit"],
-                                                self.find_element_by_name(
-                        k["name"], self.needed_elements)[0]["unit"],
-                        float(k["step"]))
+                    step = self.convert.convert(k["unit"], self.find_element_by_name(
+                        k["name"], self.needed_elements)[0]["unit"], float(k["step"]))
+                    end = self.convert.convert(k["unit"], self.find_element_by_name(
+                        k["name"], self.needed_elements)[0]["unit"], float(k["end"]))
+                else:
+                    start = float(start)
+                    step = float(k["step"])
                 tmp_list.append(float(start))
                 while float(start) < float(end):
                     start = float(start) + float(step)
@@ -322,6 +324,20 @@ class Config:
         values[index2] = element["value"]
         self.db_list[index[0]]["values"] = tuple(values)
 
+    def generate_json_stub(self, json_file, **vars):
+        """
+        Generate a json stub or appends to it for the given paramater names.
+
+        Args:
+                json_file (str) address of the given json file
+
+        Kwargs:
+                parameters name (str)
+
+        Returns:
+                None
+        """
+
     def agument_config(self, combination):
         """
         Infulence the STELA settings with the created combinations.
@@ -335,7 +351,6 @@ class Config:
         Returns:
                   None
         """
-        # combination = self.add_date_to_combination(combination)
         counter = 0
         for o in self.combination_option:
             if(o == "Length"):

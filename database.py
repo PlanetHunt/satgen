@@ -339,7 +339,6 @@ class DB:
         conn = self.conn
         c = self.cur
         space_object = config["spaceObject"]
-        print space_object
         c.execute(
             '''INSERT INTO spaceObject{0} values {1}'''.
             format(space_object["names"], space_object["qu"]),
@@ -348,6 +347,7 @@ class DB:
         space_object_id = c.lastrowid
         self.add_space_object_id(space_object_id, config)
         init_state = config["initState"]
+        print init_state
         c.execute(
             '''INSERT INTO initState{0} values {1}'''.
             format(init_state["names"], init_state["qu"]),
