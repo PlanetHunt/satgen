@@ -184,6 +184,64 @@ class DB:
         sat_id = c.fetchone()
         return sat_id
 
+    def add_space_object_id(self, space_object_id, db_list):
+        """
+        Add Space object id to the given database list.
+
+        Args:
+                space_object_id (int)
+                db_list (dict)
+
+        Kwargs:
+                None
+
+        Returns:
+                None
+        """
+        if("spaceObjectId" not in db_list["initState"]["names"] and
+           "spaceObjectId" not in db_list["simGeneral"]["names"]):
+            db_list_init_state_names = list(db_list["initState"]["names"])
+            db_list_init_state_values = list(
+                db_list["initState"]["values"])
+            db_list_init_state_qu = db_list["initState"]["qu"]
+            db_list_init_state_names.append("spaceObjectId")
+            db_list_init_state_values.append(space_object_id)
+            db_list_init_state_qu = db_list_init_state_qu[:-1] + ",?)"
+            db_list["initState"]["names"] = tuple(
+                db_list_init_state_names)
+            db_list["initState"]["values"] = tuple(
+                db_list_init_state_values)
+            db_list["initState"]["qu"] = db_list_init_state_qu
+            db_list_sim_general_names = list(
+                db_list["simGeneral"]["names"])
+            db_list_sim_general_values = list(
+                db_list["simGeneral"]["values"])
+            db_list_sim_general_qu = db_list["simGeneral"]["qu"]
+            db_list_sim_general_names.append("spaceObjectId")
+            db_list_sim_general_values.append(space_object_id)
+            db_list_sim_general_qu = db_list_sim_general_qu[:-1] + ",?)"
+            db_list["simGeneral"]["names"] = tuple(
+                db_list_sim_general_names)
+            db_list["simGeneral"]["values"] = tuple(
+                db_list_sim_general_values)
+            db_list["simGeneral"]["qu"] = db_list_sim_general_qu
+        else:
+            index_sim_general = list(
+                db_list["simGeneral"]["names"]).index("spaceObjectId")
+            index_init_state = list(
+                db_list["initState"]["names"]).index("spaceObjectId")
+            db_list_sim_general_values = list(
+                db_list["simGeneral"]["values"])
+            db_list_init_state_values = list(
+                db_list["initState"]["values"])
+            db_list_sim_general_values[index_sim_general] = space_object_id
+            db_list_init_state_values[index_init_state] = space_object_id
+            db_list["simGeneral"]["values"] = tuple(
+                db_list_sim_general_values)
+            db_list["initState"]["values"] = tuple(
+                db_list_init_state_values)
+        return db_list
+
     def get_tables(self):
         """
         Returns the tables in the given database.
@@ -281,12 +339,14 @@ class DB:
         conn = self.conn
         c = self.cur
         space_object = config["spaceObject"]
+        print space_object
         c.execute(
             '''INSERT INTO spaceObject{0} values {1}'''.
             format(space_object["names"], space_object["qu"]),
             space_object["values"])
         conn.commit()
         space_object_id = c.lastrowid
+        self.add_space_object_id(space_object_id, config)
         init_state = config["initState"]
         c.execute(
             '''INSERT INTO initState{0} values {1}'''.

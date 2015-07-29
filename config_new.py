@@ -15,6 +15,7 @@ from xml_pretty import prettify
 from time import gmtime, strftime
 from logger import Logger
 from database import DB
+from unit_converter import UnitConverter
 
 
 class Config:
@@ -35,7 +36,8 @@ class Config:
                  ):
         logger = Logger(log_level)
         self.log = logger.get_logger()
-        self.db = db
+        self.db = DB(db)
+        self.convert = UnitConverter(log_level)
         try:
             stjsha = open(stela_file)
             ststha = open(start_file)
@@ -155,9 +157,17 @@ class Config:
                         start, self.convert_to_tuple(k["step"]))
                     tmp_list.append(str(start))
             else:
+                if(k["unit"] != self.find_element_by_name(k["name"], self.needed_elements)[0]["unit"]):
+                    start = self.convert.convert(k["unit"],
+                                                 self.find_element_by_name(
+                        k["name"], self.needed_elements)[0]["unit"], float(start))
+                    step = self.convert.convert(k["unit"],
+                                                self.find_element_by_name(
+                        k["name"], self.needed_elements)[0]["unit"],
+                        float(k["step"]))
                 tmp_list.append(float(start))
                 while float(start) < float(end):
-                    start = float(start) + float(k["step"])
+                    start = float(start) + float(step)
                     tmp_list.append(start)
         return all_step_config
 
@@ -178,6 +188,7 @@ class Config:
         all_steps = self.do_steps()
         self.combination_option = [k for k, v in all_steps.items()]
         self.combination_option.append("name")
+        self.combination_option.append("date")
         result = itertools.product(*(v for k, v in all_steps.items()))
         return result
 
@@ -324,28 +335,38 @@ class Config:
         Returns:
                   None
         """
+        # combination = self.add_date_to_combination(combination)
         counter = 0
         for o in self.combination_option:
             if(o == "Length"):
                 new_value = combination[counter]
-                el_area = self.find_element_by_name(
-                    "dragArea", self.needed_elements)
-                el_ref = self.find_element_by_name(
-                    "reflectingArea", self.needed_elements)
-                el_area[0]["value"] = self.calculate_drag_area(
-                    self.convert_to_tuple(new_value))
-                el_ref[0]["value"] = self.calculate_drag_area(
-                    self.convert_to_tuple(new_value))
-                self.exchange_element(el_ref[0], self.needed_elements)
-                self.exchange_element(el_area[0], self.needed_elements)
+                self.update_value("dragArea", self.calculate_drag_area(
+                    self.convert_to_tuple(new_value)))
+                self.update_value("reflectingArea", self.calculate_drag_area(
+                    self.convert_to_tuple(new_value)))
                 counter = counter + 1
             else:
                 new_value = combination[counter]
-                el_tmp = self.find_element_by_name(
-                    o, self.needed_elements)
-                el_tmp[0]["value"] = new_value
-                self.exchange_element(el_tmp[0], self.needed_elements)
+                self.update_value(o, new_value)
                 counter = counter + 1
+
+    def update_value(self, name, value):
+        """
+        Update a value in the needed elements.
+
+        Args:
+                name (str)
+                value (float)
+
+        Kwargs:
+                None
+
+        Returns:
+                None
+        """
+        element = self.find_element_by_name(name, self.needed_elements)[0]
+        element["value"] = value
+        self.exchange_element(element, self.needed_elements)
 
     def add_element_to_db_tuple(self, element):
         """
@@ -366,25 +387,32 @@ class Config:
                    (self.db_list.keys())):
                     self.db_list[element["database_tag"]] = {}
                     self.db_list[element["database_tag"]][
-                        "names"] = (element["xml_tag"],)
-                    self.db_list[element["database_tag"]][
-                        "values"] = (element["value"],)
+                        "names"] = (str(element["xml_tag"]),)
+                    if(type(element["value"]) != str):
+                        self.db_list[element["database_tag"]][
+                            "values"] = (element["value"],)
+                    else:
+                        self.db_list[element["database_tag"]][
+                            "values"] = (str(element["value"]),)
                     self.db_list[element["database_tag"]]["qu"] = "(?,"
                 else:
                     if(element["xml_tag"] not in
                        self.db_list[element["database_tag"]]["names"]):
-                        self.db_list[element["database_tag"]]["names"] =\
-                            self.db_list[
+                        self.db_list[element["database_tag"]]["names"] = self.db_list[
                             element["database_tag"]]["names"] +\
-                            (element["xml_tag"],)
+                            (str(element["xml_tag"]),)
+                        if(type(element["value"]) != str):
+                            self.db_list[element
+                                         ["database_tag"]]["values"] = self.db_list[
+                                element["database_tag"]]["values"] + \
+                                (element["value"],)
+                        else:
+                            self.db_list[element
+                                         ["database_tag"]]["values"] = self.db_list[
+                                element["database_tag"]]["values"] + \
+                                (str(element["value"]),)
                         self.db_list[element
-                                     ["database_tag"]]["values"] =\
-                            self.db_list[
-                            element["database_tag"]]["values"] + \
-                            (element["value"],)
-                        self.db_list[element
-                                     ["database_tag"]]["qu"] = \
-                            self.db_list[element["database_tag"]]["qu"] + "?,"
+                                     ["database_tag"]]["qu"] = self.db_list[element["database_tag"]]["qu"] + "?,"
 
     def recursive_xml_generate(self, root, parent=""):
         """
@@ -514,20 +542,6 @@ class Config:
         else:
             return False
 
-    def add_space_object_id(self, space_object_id):
-        """
-        Add Space object id to the given database list.
-
-        Args:
-                space_object_id (int)
-
-        Kwargs:
-                None
-
-        Returns:
-                None
-        """
-
     def solve_multi_parentage(self):
         """
         Solves the multiparentage problem. by adding multiparent element
@@ -601,8 +615,38 @@ class Config:
             return []
 
     def add_name_to_combination(self, combination):
+        """
+        Adds the name to the combination
+
+        Args:
+                combination (tuple)
+
+        Kwargs:
+                None
+
+        Returns:
+                 tuple (new combination)
+        """
         combination_list = list(combination)
         combination_list.append(self.generate_name())
+        return tuple(combination_list)
+
+    def add_date_to_combination(self, combination):
+        """
+        Update the date for the given STELA sim object.
+
+        Args:
+                combination (tuple)
+
+        Kwargs:
+                None
+
+        Returns:
+                tuple (new combination)
+        """
+        combination_list = list(combination)
+        date = strftime("%Y-%m-%dT%H:%M:%S.000", gmtime())
+        combination_list.append(date)
         return tuple(combination_list)
 
     def element_exists(self, element, json_list):
@@ -638,11 +682,11 @@ class Config:
         if(len(self.needed_elements) == 0):
             self.generate_foundation_xml()
             xml_feed = self.sort_by_parents_children()
-            self.get_path()
+            print self.get_path()
             self.recursive_xml_generate(xml_feed)
         else:
             xml_feed = self.sort_by_parents_children()
-            self.get_path()
+            print self.get_path()
             self.recursive_xml_generate(xml_feed)
 
     def generate_foundation_xml(self):
@@ -674,13 +718,14 @@ class Config:
         self.solve_multi_parentage()
         self.generate_xml()
 
-
 config = Config("satgen.db")
 config.generate_xml()
 combinations = config.get_combinations()
 config.agument_database()
+config.db.create_all_tables()
 for c in combinations:
     c = config.add_name_to_combination(c)
+    c = config.add_date_to_combination(c)
     config.agument_config(c)
+    config.db.update_all(config.db_list)
     config.generate_xml()
-    # print config.generate_xml()
