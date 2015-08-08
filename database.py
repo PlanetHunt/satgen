@@ -73,7 +73,8 @@ class DB:
                 vX real,
                 vY real,
                 vZ real,
-                spaceObjectId integer)'''.format(table_type))
+                spaceObjectId integer,
+                years real)'''.format(table_type))
 
     def create_space_object_table(self):
         """
@@ -286,14 +287,23 @@ class DB:
 
     def insert_final_state(self, config_tuple):
         """
-        Insert finalState to the database after extrapolation
+        Insert finalState to the database after extrapolation.
+
+        Args:
+                config_tuple dict
+
+        Kwargs:
+                None
+
+        Returns:
+                None
         """
         conn = self.conn
         c = self.cur
         c.execute(
             '''INSERT INTO finalState{0} values{1}'''.
-            format(config_tuple["key"], config_tuple["qu"]),
-            config_tuple["value"])
+            format(config_tuple["keys"], config_tuple["qu"]),
+            config_tuple["values"])
         conn.commit()
 
     def insert_sim_general(self, space_object_id):

@@ -23,6 +23,8 @@ var/
 *.egg
 sim/
 master_sim/
+sara_sim/
+satgen.db-journal
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt

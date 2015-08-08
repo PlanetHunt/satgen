@@ -1,6 +1,0 @@
----
-error no:   1
-type: error
-title: Max. altitude (150 km) exceeded
-location: trajec
-message:  Calculation stopped at alt.[km]:    151.90134471557755                         

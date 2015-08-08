@@ -48,6 +48,7 @@ class Extrapolate:
         Returns:
                 Boolean
         """
+        print name
         stela_path = self.stela_config.config["stela"]["path"]
         os.chdir(stela_path)
         input_file = str(self.path + "/" + name + "_a_sim.xml")
@@ -63,6 +64,8 @@ class Extrapolate:
                    "mean",
                    "keplerian CIRF"]
         CR = subprocess.call(command)
+        os.chdir(self.stela_config.config["project"][
+            "base"])
 
     def prepare(self, update_values):
         """
@@ -97,6 +100,39 @@ class Extrapolate:
         self.stela_config.db.update_all(self.stela_config.db_list)
         return name
 
+    def generate_final_tuple(self, name, years):
+        """
+        Generate the tuple needed for the database entry in finalState
+
+        Args:
+                name (str)
+                years (float)
+
+        Kwargs:
+                None
+
+        Returns:
+                dict
+        """
+        date = self.get_final_date()
+        final_results = self.get_final_state_value()
+        result = {}
+        qu = "("
+        keys = ()
+        values = ()
+        for i in final_results:
+            qu = qu + "?,"
+            keys = keys + (i.tag,)
+            values = values + (i.text,)
+        qu = qu + "?,?,?)"
+        keys = keys + ('spaceObjectId', 'date', 'years')
+        values = values + \
+            (self.stela_config.db.get_sat_id_by_name(name)[0], date, years)
+        result["qu"] = qu
+        result["keys"] = keys
+        result["values"] = values
+        return result
+
     def read_results(self, name):
         """
         Reads the result files to calculate different values.
@@ -113,7 +149,7 @@ class Extrapolate:
         self.doc = parse(str(self.path + "/" + name + "_out_sim.xml"))
         self.tree = ET.parse(str(self.path + "/" + name + "_out_sim.xml"))
 
-    def get_final_state_value(self, key):
+    def get_final_state_value(self):
         """
         Get the final status value that can be set in the database.
 
@@ -126,13 +162,10 @@ class Extrapolate:
         Returns:
                 Value
         """
-        node = self.doc.getElementsByTagName(
-            "finalState")[0].getElementsByTagName(key)
-        try:
-            tmp = float(node[0].firstChild.nodeValue)
-        except:
-            self.end(50, "Key <" + key + "> not found in final bulletin")
-        return tmp
+        root = self.tree.getroot()
+        finalstate = root.findall(
+            str(".//finalState/bulletin/" + self.get_final_type() + "/*"))
+        return list(finalstate)
 
     def get_final_date(self):
         """
@@ -187,7 +220,7 @@ class Extrapolate:
         self.final_type = list(finalstate[0])[1].tag
         return list(finalstate[0])[1].tag
 
-    def get_time_diff(self, start_date, final_date):
+    def get_time_diff(self, name):
         """
         calcultes the time difference between to give time in the Stela format.
 
@@ -201,14 +234,12 @@ class Extrapolate:
         Returns:
                 float
         """
+        self.read_results(name)
+        start_date = self.get_initial_date()
+        final_date = self.get_final_date()
         days_in_year = 365.2425
         sd = datetime.strptime(start_date, "%Y-%m-%dT%H:%M:%S.%f")
         ed = datetime.strptime(final_date, "%Y-%m-%dT%H:%M:%S.%f")
         time_diff = ed - sd
         diff_in_years = time_diff.days / days_in_year
         return diff_in_years
-ex = Extrapolate("satgen.db")
-name = ex.prepare([7000, 0.01, 0.15, 98, 1])
-ex.extrapolate(name)
-ex.read_results(name)
-print ex.get_time_diff(ex.get_initial_date(), ex.get_final_date())
