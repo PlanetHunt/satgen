@@ -1,0 +1,24 @@
+{
+    "sections": [{
+        "name": "semiMajorAxis",
+        "sort_number": "1",
+        "unit": "km"
+    }, {
+        "name": "eccentricity",
+        "sort_number": "2",
+        "unit": ""
+    }, {
+        "name": "dragArea",
+        "sort_number": "3",
+        "unit": ""
+    }, {
+        "name": "inclination",
+        "sort_number": "4",
+        "unit": "deg"
+
+    }, {
+        "name": "mass",
+        "sort_number": "5",
+        "unit": "kg"
+    }]
+}

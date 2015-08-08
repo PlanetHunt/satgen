@@ -36,7 +36,6 @@ class Config:
                  ):
         logger = Logger(log_level)
         self.log = logger.get_logger()
-        self.db = DB(db)
         self.convert = UnitConverter(log_level)
         try:
             stjsha = open(stela_file)
@@ -60,10 +59,27 @@ class Config:
         ststha.close()
         stspha.close()
         confha.close()
+        self.db = DB(str(self.config["project"]["base"] + db))
         self.combination_option = []
         self.db_list = {}
         self.multiparentage = []
         self.needed_elements = []
+
+    def get_value(self, name):
+        """
+        Gets the value of given element by name.
+
+        Args:
+                name (str)
+
+        Kwargs:
+                None
+
+        Returns:
+                different
+        """
+        element = self.find_element_by_name(name, self.needed_elements)[0]
+        return element["value"]
 
     def add_edge_length(self, a, b):
         """
@@ -157,13 +173,25 @@ class Config:
                         start, self.convert_to_tuple(k["step"]))
                     tmp_list.append(str(start))
             else:
-                if(not (k["unit"] == self.find_element_by_name(k["name"], self.needed_elements)[0]["unit"])):
-                    start = self.convert.convert(k["unit"], self.find_element_by_name(
-                        k["name"], self.needed_elements)[0]["unit"], float(start))
-                    step = self.convert.convert(k["unit"], self.find_element_by_name(
-                        k["name"], self.needed_elements)[0]["unit"], float(k["step"]))
-                    end = self.convert.convert(k["unit"], self.find_element_by_name(
-                        k["name"], self.needed_elements)[0]["unit"], float(k["end"]))
+                if(not (k["unit"] ==
+                        self.find_element_by_name(
+                        k["name"],
+                        self.needed_elements)[0]["unit"])):
+                    start = self.convert.convert(k["unit"],
+                                                 self.find_element_by_name(
+                        k["name"],
+                        self.needed_elements)[0]["unit"],
+                        float(start))
+                    step = self.convert.convert(k["unit"],
+                                                self.find_element_by_name(
+                        k["name"],
+                        self.needed_elements)[0]["unit"],
+                        float(k["step"]))
+                    end = self.convert.convert(k["unit"],
+                                               self.find_element_by_name(
+                        k["name"],
+                        self.needed_elements)[0]["unit"],
+                        float(k["end"]))
                 else:
                     start = float(start)
                     step = float(k["step"])
@@ -365,13 +393,14 @@ class Config:
                 self.update_value(o, new_value)
                 counter = counter + 1
 
-    def update_value(self, name, value):
+    def update_value(self, name, value, unit=None):
         """
         Update a value in the needed elements.
 
         Args:
                 name (str)
                 value (float)
+                unit (str)
 
         Kwargs:
                 None
@@ -380,6 +409,12 @@ class Config:
                 None
         """
         element = self.find_element_by_name(name, self.needed_elements)[0]
+        if(unit):
+            if(not unit == self.find_element_by_name(
+                    name, self.needed_elements)[0]["unit"]):
+                value = self.convert.convert(
+                    unit, self.find_element_by_name(
+                        name, self.needed_elements)[0]["unit"], float(value))
         element["value"] = value
         self.exchange_element(element, self.needed_elements)
 
@@ -413,21 +448,26 @@ class Config:
                 else:
                     if(element["xml_tag"] not in
                        self.db_list[element["database_tag"]]["names"]):
-                        self.db_list[element["database_tag"]]["names"] = self.db_list[
+                        self.db_list[element["database_tag"]]["names"] =\
+                            self.db_list[
                             element["database_tag"]]["names"] +\
                             (str(element["xml_tag"]),)
-                        if(type(element["value"]) != str):
-                            self.db_list[element
-                                         ["database_tag"]]["values"] = self.db_list[
-                                element["database_tag"]]["values"] + \
+                        if(type(element["value"]) !=
+                           str):
+                            self.db_list[
+                                element["database_tag"]]["values"] =\
+                                self.db_list[
+                                    element["database_tag"]]["values"] + \
                                 (element["value"],)
                         else:
-                            self.db_list[element
-                                         ["database_tag"]]["values"] = self.db_list[
+                            self.db_list[
+                                element["database_tag"]]["values"] =\
+                                self.db_list[
                                 element["database_tag"]]["values"] + \
                                 (str(element["value"]),)
-                        self.db_list[element
-                                     ["database_tag"]]["qu"] = self.db_list[element["database_tag"]]["qu"] + "?,"
+                        self.db_list[
+                            element["database_tag"]]["qu"] =\
+                            self.db_list[element["database_tag"]]["qu"] + "?,"
 
     def recursive_xml_generate(self, root, parent=""):
         """
@@ -646,6 +686,21 @@ class Config:
         combination_list.append(self.generate_name())
         return tuple(combination_list)
 
+    def get_date_now(self):
+        """
+        Returns the date (now) in STELA acceptable format.
+
+        Args:
+                None
+
+        Kwargs:
+                None
+
+        Returns:
+                str (date)
+        """
+        return strftime("%Y-%m-%dT%H:%M:%S.000", gmtime())
+
     def add_date_to_combination(self, combination):
         """
         Update the date for the given STELA sim object.
@@ -660,7 +715,7 @@ class Config:
                 tuple (new combination)
         """
         combination_list = list(combination)
-        date = strftime("%Y-%m-%dT%H:%M:%S.000", gmtime())
+        date = self.get_date_now()
         combination_list.append(date)
         return tuple(combination_list)
 
@@ -697,11 +752,9 @@ class Config:
         if(len(self.needed_elements) == 0):
             self.generate_foundation_xml()
             xml_feed = self.sort_by_parents_children()
-            print self.get_path()
             self.recursive_xml_generate(xml_feed)
         else:
             xml_feed = self.sort_by_parents_children()
-            print self.get_path()
             self.recursive_xml_generate(xml_feed)
 
     def generate_foundation_xml(self):
@@ -733,14 +786,14 @@ class Config:
         self.solve_multi_parentage()
         self.generate_xml()
 
-config = Config("satgen.db")
-config.generate_xml()
-combinations = config.get_combinations()
-config.agument_database()
-config.db.create_all_tables()
-for c in combinations:
-    c = config.add_name_to_combination(c)
-    c = config.add_date_to_combination(c)
-    config.agument_config(c)
-    config.db.update_all(config.db_list)
-    config.generate_xml()
+# config = Config("satgen.db")
+# config.generate_xml()
+# combinations = config.get_combinations()
+# config.agument_database()
+# config.db.create_all_tables()
+# for c in combinations:
+#    c = config.add_name_to_combination(c)
+#    c = config.add_date_to_combination(c)
+#    config.agument_config(c)
+#    config.db.update_all(config.db_list)
+#    config.generate_xml()

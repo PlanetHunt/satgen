@@ -347,7 +347,6 @@ class DB:
         space_object_id = c.lastrowid
         self.add_space_object_id(space_object_id, config)
         init_state = config["initState"]
-        print init_state
         c.execute(
             '''INSERT INTO initState{0} values {1}'''.
             format(init_state["names"], init_state["qu"]),
@@ -401,7 +400,6 @@ class DB:
             spaceObject,finalState WHERE finalState.timediff < 25.0  and
             finalState.spaceObjectId=spaceObject.id''')
         aq = all_rows_init.fetchall()
-        print len(aq)
         result["length"] = len(aq)
         result["data"] = aq
         return result

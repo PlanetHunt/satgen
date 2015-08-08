@@ -9,7 +9,7 @@
     ],
     "unit": "",
     "default_parms": [{
-      "version": "2.5.0"
+      "version": "2.6.0"
     }],
     "can_be_combined": [],
     "children": [
@@ -53,7 +53,7 @@
     ],
     "unit": "",
     "default_parms": [
-      "2.5.1"
+      "2.6.0"
     ],
     "can_be_combined": [],
     "children": [],
@@ -240,7 +240,7 @@
     ],
     "unit": "",
     "default_parms": [{
-      "version": "2.5.0"
+      "version": "2.6.0"
     }],
     "can_be_combined": [],
     "children": ["initState", "finalState"],
@@ -287,7 +287,7 @@
     ],
     "unit": "",
     "default_parms": [{
-      "version": "2.5.0"
+      "version": "2.6.0"
     }],
     "can_be_combined": [],
     "children": ["date",

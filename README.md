@@ -1,6 +1,6 @@
 SATGEN
 ======
-A python tool for massive satellite debris mitigation analysis. This tool uses two wellknown systems.
+A python tool for massive satellite debris mitigation analysis. This tool uses two well-known systems.
 ESA MASTER and DRAMA and also the STELA tool. It is still in development with new features adding.
 
 
@@ -16,7 +16,7 @@ To make this tool work several Python and Linux (unix) packages must be installe
 
 Installation
 ============
-The installation is fairly easy they are some setting that must be meeted so the 
+The installation is fairly easy they are some setting that must be meeted so the
 application works as intented.
 
 
@@ -40,4 +40,3 @@ TODO
 
 Lisence
 =======
-
