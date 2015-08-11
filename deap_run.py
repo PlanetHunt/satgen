@@ -1,5 +1,7 @@
 import json
 import random
+from multiprocessing import Pool, Process
+from database import DB
 from extrapolate_new import Extrapolate
 from deap import creator, base, tools, algorithms
 
@@ -15,6 +17,9 @@ DRA_MAX = 0.15
 DRA_MIN = 0.60
 MAS_MAX = 1
 MAS_MIN = 5
+
+#proccess_1 = Process(target=qmt.go_on(), args=())
+#proccess_1.start()
 
 
 def evalPose(individual, target_value):
@@ -35,8 +40,8 @@ def evalPose(individual, target_value):
     name = ex.prepare(individual)
     ex.extrapolate(name)
     years = ex.get_time_diff(name)
-    final_tuple = ex.generate_final_tuple(name, years)
-    ex.stela_config.db.insert_final_state(final_tuple)
+    #final_tuple = ex.generate_final_tuple(name, years)
+    # ex.stela_config.db.insert_final_state(final_tuple)
     return (abs(years - target_value),)
 
 
@@ -80,9 +85,14 @@ def initSat(icls,
                  random.uniform(masMax, masMin)])
 
 # Genetic Algorithm part
+
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMin)
 toolbox = base.Toolbox()
+
+pool = Pool()
+toolbox.register("map", pool.map)
+
 toolbox.register("individual",
                  initSat,
                  creator.Individual,

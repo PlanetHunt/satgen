@@ -4,6 +4,7 @@ import os
 import json
 import subprocess
 import xml.etree.ElementTree as ET
+from quemgr import QueMgr
 from datetime import datetime
 from operator import itemgetter
 from config_new import Config
@@ -15,7 +16,8 @@ class Extrapolate:
 
     def __init__(self,
                  db,
-                 deap_params="stela_deap.json"):
+                 deap_params="stela_deap.json",
+                 quemgr="None"):
         self.stela_config = Config(db)
         self.stela_config.db.create_all_tables()
         self.stela_config.generate_xml()
@@ -34,6 +36,7 @@ class Extrapolate:
         stdp.close()
         self.path = self.stela_config.config["project"][
             "base"] + self.stela_config.config["sim"]["path"]
+        self.quemgr = quemgr
 
     def extrapolate(self, name):
         """
@@ -97,7 +100,7 @@ class Extrapolate:
         self.stela_config.update_value("date", date)
         self.stela_config.generate_xml()
         self.stela_config.agument_database()
-        self.stela_config.db.update_all(self.stela_config.db_list)
+        #self.stela_config.db.update_all( self.stela_config.db_list)
         return name
 
     def generate_final_tuple(self, name, years):
