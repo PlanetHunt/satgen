@@ -785,15 +785,3 @@ class Config:
                 self.add_element_to_db_tuple(element)
         self.solve_multi_parentage()
         self.generate_xml()
-
-#config = Config("satgen.db")
-#config.generate_xml()
-#combinations = config.get_combinations()
-#config.agument_database()
-#config.db.create_all_tables()
-#for c in combinations:
-#    c = config.add_name_to_combination(c)
-#    c = config.add_date_to_combination(c)
-#    config.agument_config(c)
-#    config.db.update_all(config.db_list)
-#    config.generate_xml()
