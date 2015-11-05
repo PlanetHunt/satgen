@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import urllib2
-from sgp4.earth_gravity import wgs72
-from sgp4.io import twoline2rv
-from sgp4 import propagation
+from libs.sgp4.earth_gravity import wgs72
+from libs.sgp4.io import twoline2rv
+from libs.sgp4 import propagation
 import math
 
 

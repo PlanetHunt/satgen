@@ -269,9 +269,9 @@ class Config:
         Returns:
                   None
         """
-        if(not os.path.isdir(self.config["sim"]["path"])):
-            os.mkdir(self.config["sim"]["path"])
-        return self.config["sim"]["path"] + "/" + \
+        if(not os.path.isdir(self.config["stela"]["sim_path"])):
+            os.mkdir(self.config["stela"]["sim_path"])
+        return self.config["stela"]["sim_path"] + "/" + \
             [item for item in self.needed_elements
              if item["name"] == "name"][0]["value"] + "_a_sim.xml"
 

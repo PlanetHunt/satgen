@@ -172,8 +172,8 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
     random.seed(64)
-    
-    pool = Pool(processes=6)
+
+    pool = Pool(processes=1)
     toolbox.register("map", pool.map)
     pop = toolbox.population(n=300)
     hof = tools.HallOfFame(1)
@@ -183,7 +183,7 @@ def main():
     stats.register("min", numpy.min)
     stats.register("max", numpy.max)
 
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=15, 
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=15,
                         stats=stats, halloffame=hof)
     return pop, stats, hof
 

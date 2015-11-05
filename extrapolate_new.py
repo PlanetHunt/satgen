@@ -4,7 +4,6 @@ import os
 import json
 import subprocess
 import xml.etree.ElementTree as ET
-from quemgr import QueMgr
 from datetime import datetime
 from operator import itemgetter
 from config_new import Config
@@ -12,12 +11,12 @@ from database import DB
 from xml.dom.minidom import parse
 import time
 
+
 class Extrapolate:
 
     def __init__(self,
                  db,
-                 deap_params="stela_deap.json",
-                 quemgr="None"):
+                 deap_params="stela_deap.json"):
         self.stela_config = Config(db)
         self.stela_config.db.create_all_tables()
         self.stela_config.generate_xml()
@@ -35,8 +34,7 @@ class Extrapolate:
             raise
         stdp.close()
         self.path = self.stela_config.config["project"][
-            "base"] + self.stela_config.config["sim"]["path"]
-        self.quemgr = quemgr
+            "base"] + self.stela_config.config["stela"]["sim_path"]
 
     def extrapolate(self, name):
         """
@@ -101,17 +99,16 @@ class Extrapolate:
         self.stela_config.update_value("date", date)
         self.stela_config.generate_xml()
         self.stela_config.agument_database()
-        self.stela_config.db.update_all( self.stela_config.db_list)
+        self.stela_config.db.update_all(self.stela_config.db_list)
         return name
 
-
-    def write_to_log(self,logfile,to_write):
-	"""
-	Writes to log, for debug only.
-	"""
-	f = open(logfile,'w')
-	f.write(to_write) # python will convert \n to os.linesep
-	f.close() # you can omit in most cases as the destructor will call it
+    def write_to_log(self, logfile, to_write):
+        """
+        Writes to log, for debug only.
+        """
+        f = open(logfile, 'w')
+        f.write(to_write)  # python will convert \n to os.linesep
+        f.close()  # you can omit in most cases as the destructor will call it
 
     def generate_final_tuple(self, name, years):
         """
@@ -139,7 +136,8 @@ class Extrapolate:
             values = values + (i.text,)
         qu = qu + "?,?,?)"
         keys = keys + ('spaceObjectId', 'date', 'years')
-	self.write_to_log("test.log", repr(self.stela_config.db.get_sat_id_by_name(name)))
+        self.write_to_log("test.log", repr(
+            self.stela_config.db.get_sat_id_by_name(name)))
         values = values + \
             (self.stela_config.db.get_sat_id_by_name(name)[0], date, years)
         result["qu"] = qu
@@ -165,8 +163,8 @@ class Extrapolate:
             self.tree = ET.parse(str(self.path + "/" + name + "_out_sim.xml"))
         except IOError as e:
             return False
-	
-	return True
+
+        return True
 
     def get_final_state_value(self, name):
         """
@@ -181,15 +179,15 @@ class Extrapolate:
         Returns:
                 Value
         """
-	
-	res = self.read_results(name)
-	if(res):
-        	root = self.tree.getroot()
-        	finalstate = root.findall(
-            		str(".//finalState/bulletin/" + self.get_final_type() + "/*"))
-        	return list(finalstate)
-	else:
-	    return self.get_inital_state_value()
+
+        res = self.read_results(name)
+        if(res):
+            root = self.tree.getroot()
+            finalstate = root.findall(
+                str(".//finalState/bulletin/" + self.get_final_type() + "/*"))
+            return list(finalstate)
+        else:
+            return self.get_inital_state_value()
 
     def get_inital_state_value(self):
         root = self.tree.getroot()
@@ -210,13 +208,13 @@ class Extrapolate:
         Returns:
                 str
         """
-	res = self.read_results(name)
-	if(res):
-	        node = self.doc.getElementsByTagName(
-        	    "finalState")[0].getElementsByTagName("date")
-	        return node[0].firstChild.nodeValue
-	else:
-		return self.get_initial_date(name)
+        res = self.read_results(name)
+        if(res):
+            node = self.doc.getElementsByTagName(
+                "finalState")[0].getElementsByTagName("date")
+            return node[0].firstChild.nodeValue
+        else:
+            return self.get_initial_date(name)
 
     def get_initial_date(self, name):
         """
@@ -231,17 +229,17 @@ class Extrapolate:
         Returns:
                 str
         """
-	res = self.read_results(name)
-	if(res):
-	        node = self.doc.getElementsByTagName(
-        	    "initState")[0].getElementsByTagName("date")
-	        return node[0].firstChild.nodeValue
-	else:
-		self.doc = parse(str(self.path + "/" + name + "_a_sim.xml"))
-		self.tree = ET.parse(str(self.path + "/" + name + "_a_sim.xml"))
-		node = self.doc.getElementsByTagName(
-                    "initState")[0].getElementsByTagName("date")
-                return node[0].firstChild.nodeValue
+        res = self.read_results(name)
+        if(res):
+            node = self.doc.getElementsByTagName(
+                "initState")[0].getElementsByTagName("date")
+            return node[0].firstChild.nodeValue
+        else:
+            self.doc = parse(str(self.path + "/" + name + "_a_sim.xml"))
+            self.tree = ET.parse(str(self.path + "/" + name + "_a_sim.xml"))
+            node = self.doc.getElementsByTagName(
+                "initState")[0].getElementsByTagName("date")
+            return node[0].firstChild.nodeValue
 
     def get_final_type(self):
         """
@@ -261,7 +259,7 @@ class Extrapolate:
         finalstate = root.findall(".//finalState/bulletin")
         self.final_type = list(finalstate[0])[1].tag
         return list(finalstate[0])[1].tag
-    
+
     def get_inital_type(self):
         root = self.tree.getroot()
         finalstate = root.findall(".//initState/bulletin")
@@ -293,4 +291,3 @@ class Extrapolate:
             return diff_in_years
         else:
             return 0
-

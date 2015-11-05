@@ -7,7 +7,7 @@ It creates the needed table in sqlite. it also update them when needed.
 import json
 import sqlite3
 import MySQLdb as mdb
-import pint
+import libs.pint
 import ast
 from datetime import datetime
 
@@ -386,7 +386,7 @@ class DB:
         config["names"] = names
         config["values"] = values
         return config
-        
+
 
     def update_all(self, config):
         """
