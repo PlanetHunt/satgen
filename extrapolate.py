@@ -153,7 +153,7 @@ class ExtrapolateThread(threading.Thread):
             sleep(1)
             config_tuple = self.ex.convert_to_tuple(
                 object_id, ex.get_root() + self.f + "_out_sim.xml")
-            db.insert_final_state(config_tuple)
+            #db.insert_final_state(config_tuple)
 
 
 parser = argparse.ArgumentParser(

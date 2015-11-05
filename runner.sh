@@ -1,0 +1,18 @@
+#!/bin/bash
+CONSTNUM=(4 32)
+MASS_MAX=4
+MASS_MIN=4
+SMA_MAX=7700
+SMA_MIN=6500
+DRAG_MIN=0.45 #1U->0.15,2U->0.25,3U->0.35,4U->0.45,5U->0.55,6U->0.65
+DRAG_MAX=0.45
+ECC_MIN=0.01
+ECC_MAX=0.01
+INC_MIN=97
+INC_MAX=98
+FILE="4U"
+for i in ${CONSTNUM[@]}; do
+	NAME="$FILE""_""$i"".txt"
+	python deap_run.py -m $MASS_MIN $MASS_MAX -i $INC_MIN $INC_MAX -a $SMA_MIN $SMA_MAX -d $DRAG_MIN $DRAG_MAX -e $ECC_MIN $ECC_MAX -n $i > $NAME
+	rm -rf sim/*
+done

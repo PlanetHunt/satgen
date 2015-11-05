@@ -57,7 +57,7 @@ earth_radius = 6378.137
 print "sat_name, sma, inclination,ecco"
 for sat in sats:
     satellite = twoline2rv(sat.get_tle1(), sat.get_tle2(), wgs72)
-    satellite.propagate(2014, 8, 1, 12, 50, 19)
+    satellite.propagate(2015, 8, 1, 12, 50, 19)
     satllite_data = propagation._initl(satellite.satnum, satellite.whichconst,
                                        satellite.ecco,
                                        satellite.jdsatepoch, satellite.inclo,
